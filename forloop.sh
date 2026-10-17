@@ -1,7 +1,6 @@
 #!/bin/bash
 
-for i in [apple banana cherry]
-
+for i in apple banana cherry;
 do
     echo "$i"
 done
