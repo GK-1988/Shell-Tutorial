@@ -9,4 +9,5 @@ done
 
 while read -r line; do
   echo " Proceeding user: $line"
+  sleep 1s
 done < "123.txt"
