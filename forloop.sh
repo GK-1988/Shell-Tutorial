@@ -28,6 +28,7 @@ echo "Counting End.."
 
 for file in *.sh;do
     echo "Found a script file: $file"
+    sleep 1s
 done
 
 
