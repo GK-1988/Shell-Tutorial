@@ -26,10 +26,22 @@ echo "Counting End.."
 
 #Looping through files in a directory
 
-for file in *.sh;do
+for file in *.sh; do
     echo "Found a script file: $file"
-    chmod +x "$file" | tee -a execution_log.txt  # make the file executable and log the action
+    chmod +x "$file" 
+    echo "made executable: $file" | tee -a execution_log.txt  # make the file executable and log the action
     sleep 1s
-done
+done            
+
+#logs success/failure
+for file in *.sh; do
+    echo "Find the script file: $file"
+    if chmod +x "$file" ; then
+        echo " $(date) made executable: $file" | tee -a execution_log.txt  # make the file executable and log the action
+    else
+        echo " $(date) Failed to make executable: $file" | tee -a execution_log.txt  # log the failure
+    fi
+    sleep 1s
+done 
 
 
