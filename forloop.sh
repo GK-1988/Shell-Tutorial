@@ -24,4 +24,10 @@ done
 
 echo "Counting End.."
 
+#Looping through files in a directory
+
+for file in *.sh;do
+    echo "Found a script file: $file"
+done
+
 
