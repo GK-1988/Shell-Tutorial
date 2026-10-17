@@ -28,8 +28,7 @@ echo "Counting End.."
 
 for file in *.sh;do
     echo "Found a script file: $file"
-    chmod +x "$file"  # make the file executable 
-    ls -l "$file"   
+    chmod +x "$file" | tee -a execution_log.txt  # make the file executable and log the action
     sleep 1s
 done
 
