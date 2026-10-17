@@ -28,6 +28,7 @@ echo "Counting End.."
 
 for file in *.sh;do
     echo "Found a script file: $file"
+    chmod +x "$file"  # make the file executable    
     sleep 1s
 done
 
