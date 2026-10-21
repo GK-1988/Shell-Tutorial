@@ -28,7 +28,7 @@ do
             --output text
         )
 
-        r53_record="${instance}.${DOMAIN_NAME}"
+        r53_record="${instance}.${domain_name}"
 
     else
 
@@ -38,7 +38,7 @@ do
             --output text
         )
 
-        r53_record="${DOMAIN_NAME}"
+        r53_record="${domain_name}"
 
     fi
 
