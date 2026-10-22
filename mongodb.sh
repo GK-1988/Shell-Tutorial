@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USER_ID="$(id -u)"
+user_id="$(id -u)"
 logs_folder="/var/log/roboshop"
 logs_file="${logs_folder}/${0}.log"
 R="\e[31m"
