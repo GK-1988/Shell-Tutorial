@@ -8,23 +8,28 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-if [ "$user_id" -ne 0 ]; then
+if [ $user_id -ne 0 ]; then
     echo "ERROR: Please run this script with sudo user.."
     exit 1
 fi
 
 mkdir -p $logs_folder
 
-echo "Script started execution at $(date +"%F %T")" &>> $logs_file
+timestamp(){
+    date +"%F %T"
+}
+
 
 validate(){
     if [ $1 -ne 0 ]; then
-        echo -e "${2}...${R}FAILED${N}" | tee -a $logs_file
+        echo -e "$(timestamp) [ERROR] ${2}...${R}FAILED${N}" | tee -a $logs_file
         exit 1
     else
-        echo -e "${2}...${G}SUCCESS${N}" | tee -a $logs_file
+        echo -e "$(timestamp) [INFO] ${2}...${G}SUCCESS${N}" | tee -a $logs_file
     fi
 }
+
+echo "$(timestamp) [INFO] =====Script Started Execution====" | tee -a $logs_file
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 validate $? "Adding mongo repo"
@@ -41,3 +46,6 @@ validate $? "Allow remote connections to MongoDB"
 
 systemctl restart mongod 
 validate $? "Restarted MnongoD"
+
+echo "$(timestamp) [INFO] Script completed in $SECONDS seconds"
+echo "$(timestamp) [INFO] ==== Script completed Execution =====" | tee -a $logs_file
