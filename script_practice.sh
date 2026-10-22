@@ -5,13 +5,6 @@ instance_type="t3.micro"
 domain_name="opsify.online"
 hosted_zone_id="Z0977219186C15T2CZIRP"
 
-USER_ID="$(id -u)"
-
-if [ "$USER_ID" -ne 0 ]; then
-    echo "ERROR: Please install the program with sudo user..."
-    exit 1
-fi
-
 for instance in $@
 do
     echo  "Creating instance is: $instance"
