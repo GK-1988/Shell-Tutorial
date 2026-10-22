@@ -43,7 +43,7 @@ validate $? "Enabled and Started the Rabbitmq Server"
 
 
 rabbitmqctl list_users | grep -qw "roboshop"
-if [$? -ne 0 ]; then
+if [ $? -ne 0 ]; then
     rabbitmqctl add_user roboshop roboshop123 &>> $logs_file
     validate $? "creating roboshp user with password"
 else
