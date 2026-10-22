@@ -18,6 +18,9 @@ do
     )
 
     echo "Creating instance ID: $instance_id"
+    # Wait until EC2 is in running state
+    aws ec2 wait instance-running --instance-ids "$instance_id"
+    echo "$Instance is running..."
 
     if [ "$instance" != "frontend" ]; then
         IP=$(aws ec2 describe-instances \
