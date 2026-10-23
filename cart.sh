@@ -67,6 +67,7 @@ sed -i \
     -e "s/<CATALOGUE-SERVER-IPADDRESS>/catalogue.$domain_name/g" \
     "$scripts_dir/cart.service"
 cp "$scripts_dir/cart.service" /etc/systemd/system/cart.service
+validate $? "Service file copied"
 
 systemctl daemon-reload &>> $logs_file
 systemctl enable cart &>> $logs_file
