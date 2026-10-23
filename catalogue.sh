@@ -61,8 +61,11 @@ validate $? "Unzipping catalogue"
 npm install &>> $logs_file
 validate $? "Installing dependencies"
 
-sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/catalogue.service"
+#sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/catalogue.service"
+sed -i "s/<MONGODB-SERVER-IPADDRESS>/mongodb.$domain_name/g" "$scripts_dir/catalogue.service"
+validate $? "Modified domain name Successfully"
 cp "$scripts_dir/catalogue.service" /etc/systemd/system/catalogue.service
+validate $? "copied catalogue service file"
 
 systemctl daemon-reload &>> $logs_file
 systemctl enable catalogue &>> $logs_file
