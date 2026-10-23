@@ -92,7 +92,6 @@ systemctl restart catalogue
 validate $? "Restarting Catalogue"
 
 systemctl status catalogue  | tee -a $logs_file
-journalctl -u catalogue -f |tail-10 |tee -a $logs_file
 curl http://localhost:8080/health  |tee -a $logs_file
 curl http://localhost:8080/products |tee -a $logs_file
 validate $? "Healthchecks are Done"
