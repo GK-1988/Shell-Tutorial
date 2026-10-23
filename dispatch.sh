@@ -55,7 +55,7 @@ validate $? "Downloading dispatch"
 
 cd /app
 go build -o dispatch .
-validate $? "Downloading libraries and creates '/app/dispatch'"
+validate $? "Downloading libraries"
 
 #sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/dispatch.service"
 sed -i \
