@@ -60,7 +60,7 @@ cd /app
 unzip /tmp/user.zip &>> $logs_file
 validate $? "unzipping user Info"
 
-npm install &>> $log_file
+npm install &>> $logs_file
 validate $? "Installing Dependencies"
 
 sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/user.service"
