@@ -9,7 +9,7 @@
  Y="\e[33m"
  N="\e[0m"
 
-if [$user_id -ne 0 ]; then
+if [ $user_id -ne 0 ]; then
     echo "ERROR:Please run this code with sudo access.."
     exit 1
 fi
