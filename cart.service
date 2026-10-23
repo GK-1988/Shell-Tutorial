@@ -5,7 +5,7 @@ After=network-online.target
 [Service]
 User=roboshop
 Environment=REDIS_URL="redis://redis.DOMAIN_NAME:6379"
-Environment=MONGO_URL="mongodb://mongodb.DOMAIN_NAME:27017/users"
+Environment=CATALOGUE_HOST="catalogue://catalogue.DOMAIN_NAME:27017/users"
 ExecStart=/bin/node /app/server.js
 SyslogIdentifier=user
 Restart=on-failure
