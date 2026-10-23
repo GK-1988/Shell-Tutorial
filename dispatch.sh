@@ -54,8 +54,12 @@ curl -L -o /tmp/dispatch.zip https://raw.githubusercontent.com/daws-92s/roboshop
 validate $? "Downloading dispatch"
 
 cd /app
+unzip /tmp/dispatch.zip
+validate $? "unzipping the packages"
+
+cd /app
 go build -o dispatch .
-validate $? "Downloading libraries"
+validate $? "downloading the packages"
 
 #sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/dispatch.service"
 sed -i \
