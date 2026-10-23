@@ -63,7 +63,17 @@ validate $? "unzipping user Info"
 npm install &>> $logs_file
 validate $? "Installing Dependencies"
 
-sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/user.service"
+#sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/user.service"
+sed -i \
+-e "s/<REDIS-SERVER-IPADDRESS>/redis.$domain_name/g" \
+-e "s/<MONGODB-SERVER-IPADDRESS>/mongodb.$domain_name/g" \
+"$scripts_dir/user.service"
+
+if [ $? -eq 0 ]; then
+    echo "Updated user.service successfully"
+else
+    echo "Failed to update user.service"
+fi
 cp "$scripts_dir/user.service" /etc/systemd/system/user.service
 
 
