@@ -2,14 +2,13 @@
 
 USER_ID=$(id -u)
 
-
 if [ "$USER_ID" -ne 0 ]; then
     echo "ERROR: Please run this script with sudo access"
     exit 1
 fi
 
-VALIDATE(){
-    if [ $1 -eq 0 ]; then
+VALIDATE() {
+    if [ "$1" -eq 0 ]; then
         echo "$2 ..... SUCCESS"
     else
         echo "$2 ..... FAILURE"
@@ -17,22 +16,34 @@ VALIDATE(){
     fi
 }
 
+# Check AWS CLI
+command -v aws >/dev/null 2>&1
+VALIDATE $? "Checking AWS CLI"
+
+# Check arguments
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <instance-name1> <instance-name2> ..."
+    exit 1
+fi
+
 for instance in "$@"
 do
     echo "Processing instance: $instance"
 
     INSTANCE_ID=$(aws ec2 describe-instances \
-            --filters "Name=tag:Name,Values=$instance" \
-            "Name=instance-state-name,Values=pending,running,stopping,stopped" \
-            --query "Reservations[].Instances[].InstanceId" \
-            --output text)
+        --filters \
+        "Name=tag:Name,Values=$instance" \
+        "Name=instance-state-name,Values=pending,running,stopping,stopped" \
+        --query "Reservations[].Instances[].InstanceId" \
+        --output text)
 
-    if [ -z "$INSTANCE_ID" ] || [ "$INSTANCE_ID" == "None" ]; then
+    if [ -z "$INSTANCE_ID" ] || [ "$INSTANCE_ID" = "None" ]; then
         echo "Instance $instance not found"
         continue
     fi
 
     echo "Instance Details:"
+
     aws ec2 describe-instances \
         --instance-ids "$INSTANCE_ID" \
         --query "Reservations[].Instances[].{
@@ -51,7 +62,7 @@ do
     fi
 
     aws ec2 terminate-instances \
-        --instance-ids "$INSTANCE_ID" >/dev/null
+        --instance-ids "$INSTANCE_ID" >/dev/null 2>&1
 
     VALIDATE $? "Terminating $instance"
 
