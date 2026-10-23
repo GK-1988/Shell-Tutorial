@@ -71,7 +71,11 @@ validate $? "Installing dependencies"
 mv target/shipping.jar shipping.jar
 validate $? "Moving shipping.jar file"
 
-sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/shipping.service"
+#sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/shipping.service"
+sed -i \
+-e "s|<CART-SERVER-IPADDRESS>|cart.$domain_name|g" \
+-e "s|<MYSQL-SERVER-IPADDRESS>|mysql.$domain_name|g" \
+"$scripts_dir/shipping.service"
 cp "$scripts_dir/shipping.service" /etc/systemd/system/shipping.service
 
 dnf install mysql -y &>> $logs_file
