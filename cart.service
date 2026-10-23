@@ -1,14 +1,13 @@
 [Unit]
-Description=Cart Service
+Description=User Service
 After=network-online.target
 
 [Service]
 User=roboshop
-Environment=REDIS_HOST=<REDIS-SERVER-IPADDRESS>
-Environment=CATALOGUE_HOST=<CATALOGUE-SERVER-IPADDRESS>
-Environment=CATALOGUE_PORT=8080
+Environment=REDIS_URL="redis://redis.DOMAIN_NAME:6379"
+Environment=MONGO_URL="mongodb://mongodb.DOMAIN_NAME:27017/users"
 ExecStart=/bin/node /app/server.js
-SyslogIdentifier=cart
+SyslogIdentifier=user
 Restart=on-failure
 RestartSec=5
 

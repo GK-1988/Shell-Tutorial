@@ -61,11 +61,7 @@ validate $? "Unzipping cart"
 npm install &>> $logs_file
 validate $? "Installing dependencies"
 
-#sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/cart.service"
-sed -i \
-    -e "s/<REDIS-SERVER-IPADDRESS>/redis.$domain_name/g" \
-    -e "s/<CATALOGUE-SERVER-IPADDRESS>/catalogue.$domain_name/g" \
-    "$scripts_dir/cart.service"
+sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/cart.service"
 cp "$scripts_dir/cart.service" /etc/systemd/system/cart.service
 validate $? "Service file copied"
 
