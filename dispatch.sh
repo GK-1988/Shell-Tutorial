@@ -63,8 +63,9 @@ validate $? "downloading the packages"
 
 #sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/dispatch.service"
 sed -i \
--e "s|<RABBITMQ-SERVER-IPADDRESS>|rabbitmq.$domain_name|g" \
+-e "s/<RABBITMQ-SERVER-IPADDRESS>/rabbitmq.$domain_name/g" \
 "$scripts_dir/dispatch.service"
+
 cp "$scripts_dir/dispatch.service" /etc/systemd/system/dispatch.service
 
 systemctl daemon-reload &>> $logs_file
