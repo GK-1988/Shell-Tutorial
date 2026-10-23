@@ -22,10 +22,10 @@ do
     echo "Processing instance: $instance"
 
     INSTANCE_ID=$(aws ec2 describe-instances \
-        --filters "Name=tag:Name,Values=$instance" \
-        "Name=instance-state-name,Values=pending,running,stopping,stopped" \
-        --query "Reservations[].Instances[].InstanceId" \
-        --output text)
+            --filters "Name=tag:Name,Values=$instance" \
+            "Name=instance-state-name,Values=pending,running,stopping,stopped" \
+            --query "Reservations[].Instances[].InstanceId" \
+            --output text)
 
     if [ -z "$INSTANCE_ID" ] || [ "$INSTANCE_ID" == "None" ]; then
         echo "Instance $instance not found"
