@@ -3,7 +3,7 @@
 user_id=$(id -u)
 logs_folder="/var/log/roboshop"
 logs_file="${logs_folder}/${0}.log"
-domain_name="daws92s.store"
+domain_name="opsify.online"
 scripts_dir=$(dirname "$(realpath "$0")")
 R="\e[31m"
 G="\e[32m"
@@ -62,7 +62,12 @@ validate $? "Creating virtual environment"
 /app/.venv/bin/pip install -r requirements.txt &>> $logs_file
 validate $? "Installing dependencies"
 
-sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/payment.service"
+#sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/payment.service"
+sed -i \
+-e "s/<CART-SERVER-IPADDRESS>/cart.$domain_name/g" \
+-e "s/<USER-SERVER-IPADDRESS>/user.$domain_name/g" \
+-e "s/<RABBITMQ-SERVER-IPADDRESS>/rabbitmq.$domain_name/g" \
+"$scripts_dir/payment.service"
 cp "$scripts_dir/payment.service" /etc/systemd/system/payment.service
 
 systemctl daemon-reload &>> $logs_file
