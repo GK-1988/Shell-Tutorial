@@ -4,6 +4,10 @@
 command -v aws >/dev/null 2>&1
 VALIDATE $? "Checking AWS CLI"
 
+# Check AWS Credentials
+aws sts get-caller-identity >/dev/null 2>&1
+VALIDATE $? "Validating AWS Credentials"
+
 # Check arguments
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <instance-name1> <instance-name2> ..."
