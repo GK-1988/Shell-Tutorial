@@ -1,21 +1,5 @@
 #!/bin/bash
 
-USER_ID=$(id -u)
-
-if [ "$USER_ID" -ne 0 ]; then
-    echo "ERROR: Please run this script with sudo access"
-    exit 1
-fi
-
-VALIDATE() {
-    if [ "$1" -eq 0 ]; then
-        echo "$2 ..... SUCCESS"
-    else
-        echo "$2 ..... FAILURE"
-        exit 1
-    fi
-}
-
 # Check AWS CLI
 command -v aws >/dev/null 2>&1
 VALIDATE $? "Checking AWS CLI"
