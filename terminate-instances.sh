@@ -6,7 +6,7 @@ VALIDATE $? "Checking AWS CLI"
 
 # Check AWS Credentials
 aws sts get-caller-identity >/dev/null 2>&1
-VALIDATE $? "Validating AWS Credentials"
+VALIDATE $? "Validating AWS IAM User Access"
 
 # Check arguments
 if [ $# -eq 0 ]; then
